@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop Acc Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            color: #1a1a2e;
+        }
+
+        /* HEADER */
+        .header {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6c5ce7, #00b894);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo span {
+            font-size: 14px;
+            font-weight: 400;
+            color: #636e72;
+            -webkit-text-fill-color: #636e72;
+            display: block;
+        }
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+        .header-actions button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            background: white;
+            color: #2d3436;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .header-actions .btn-primary {
+            background: #6c5ce7;
+            color: white;
+        }
+        .header-actions .btn-primary:hover {
+            background: #5a4bd1;
+            transform: translateY(-2px);
+        }
+        .header-actions button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        /* STATS */
+        .stats {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .stat-item {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+        .stat-item:hover {
+            transform: translateY(-4px);
+        }
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            color: #2d3436;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: #b2bec3;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+        .stat-item:nth-child(1) .stat-number { color: #6c5ce7; }
+        .stat-item:nth-child(2) .stat-number { color: #00b894; }
+        .stat-item:nth-child(3) .stat-number { color: #fdcb6e; }
+
+        /* FILTER */
+        .filter-bar {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+        }
+        .filter-bar button {
+            padding: 8px 22px;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            font-weight: 600;
+            font-size: 13px;
+            color: #2d3436;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .filter-bar button.active {
+            background: #6c5ce7;
+            color: white;
+        }
+        .filter-bar button:hover {
+            transform: scale(1.04);
+        }
+
+        /* PRODUCT GRID - KHÔNG VIỀN, KHÔNG BẢNG GIÁ */
+        .product-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 28px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            padding: 0 0 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            transition: all 0.35s cubic-bezier(0.15, 0.75, 0.45, 1);
+            overflow: hidden;
+            cursor: default;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 24px 50px rgba(108, 92, 231, 0.12);
+        }
+
+        /* ẢNH ĐẠI DIỆN ACC */
+        .card-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(145deg, #dfe6e9, #b2bec3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: 700;
+            position: relative;
+        }
+        .card-image .badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.3px;
+        }
+        .card-image .badge-hot {
+            background: #e17055;
+        }
+
+        /* NỘI DUNG - KHÔNG CÓ BẢNG GIÁ */
+        .card-body {
+            padding: 18px 20px 6px 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #636e72;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .card-tags span {
+            background: #f0f2f5;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .card-footer {
+            padding: 0 20px 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-footer .price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #6c5ce7;
+        }
+        .card-footer .price small {
+            font-size: 13px;
+            font-weight: 400;
+            color: #b2bec3;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+
+        .btn-buy {
+            padding: 8px 22px;
+            border: none;
+            border-radius: 30px;
+            background: #6c5ce7;
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.25);
+        }
+        .btn-buy:hover {
+            background: #5a4bd1;
+            transform: scale(1.04);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.35);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-actions {
+                width: 100%;
+                justify-content: stretch;
+            }
+            .header-actions button {
+                flex: 1;
+                text-align: center;
+                font-size: 13px;
+                padding: 10px 12px;
+            }
+            .product-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            .card-image {
+                height: 130px;
+                font-size: 40px;
+            }
+            .card-title {
+                font-size: 15px;
+            }
+            .card-footer .price {
+                font-size: 17px;
+            }
+            .btn-buy {
+                padding: 6px 16px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">
+            <h1>⚡ AccPro</h1>
+            <span>Uy tín hàng đầu · Giao dịch an toàn</span>
+        </div>
+        <div class="header-actions">
+            <button><i class="fas fa-store"></i> Cửa hàng</button>
+            <button><i class="fas fa-user-plus"></i> Đăng nhập</button>
+            <button class="btn-primary"><i class="fas fa-plus-circle"></i> Đăng acc</button>
+        </div>
+    </header>
+
+    <!-- STATS -->
+    <div class="stats">
+        <div class="stat-item"><div class="stat-number">12+</div><div class="stat-label">Acc đang bán</div></div>
+        <div class="stat-item"><div class="stat-number">3.2K</div><div class="stat-label">Khách hàng</div></div>
+        <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Hỗ trợ</div></div>
+    </div>
+
+    <!-- FILTER -->
+    <div class="filter-bar">
+        <button class="active">Tất cả</button>
+        <button>Free Fire</button>
+        <button>Liên Quân</button>
+        <button>PUBG</button>
+        <button>VIP</button>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid" id="productGrid">
+
+        <!-- CARD 1 -->
+        <div class="product-card">
+            <div class="card-image" style="background: linear-gradient(145deg, #6c5ce7, #a29bfe);">
+                🎮
+                <span class="badge badge-hot">🔥 Hot</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">ACC FF #001</div>
+                <div class="card-desc">Skin bão · 200+ trang phục · Rank Cao Thủ</div>
+                <div class="card-tags">
+                    <span>Free Fire</span>
+                    <span>VIP 12</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="price">700.000đ <small>1.200.000đ</small></div>
+                <button class="btn-buy">Mua ngay</button>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="product-card">
+            <div class="card-image" style="background: linear-gradient(145deg, #00b894, #55efc4);">
+                🔫
+            </div>
+            <div class="card-body">
+                <div class="card-title">ACC FF #002</div>
+                <div class="card-desc">Full súng huyền thoại · 150+ skin súng</div>
+                <div class="card-tags">
+                    <span>Free Fire</span>
+                    <span>Siêu VIP</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="price">2.500.000đ</div>
+                <button class="btn-buy">Mua ngay</button>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="product-card">
+            <div class="card-image" style="background: linear-gradient(145deg, #fdcb6e, #f39c12);">
+                👑
+                <span class="badge">💎 VIP</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">ACC FF #003</div>
+                <div class="card-desc">Acc siêu cấp · Nhiều nhân vật hiếm · Rank Huyền Thoại</div>
+                <div class="card-tags">
+                    <span>Free Fire</span>
+                    <span>Độc quyền</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="price">8.000.000đ</div>
+                <button class="btn-buy">Mua ngay</button>
+            </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="product-card">
+            <div class="card-image" style="background: linear-gradient(145deg, #e17055, #d63031);">
+                🏆
+            </div>
+            <div class="card-body">
+                <div class="card-title">ACC FF #004</div>
+                <div class="card-desc">Kho đồ sộ · Hơn 500 vật phẩm · Rank Top 100</div>
+                <div class="card-tags">
+                    <span>Free Fire</span>
+                    <span>Pro</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="price">15.000.000đ</div>
+                <button class="btn-buy">Mua ngay</button>
+            </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="product-card">
+            <div class="card-image" style="background: linear-gradient(145deg, #0984e3, #74b9ff);">
+                ⚡
+                <span class="badge badge-hot">🔥 Best</span>
+            </div>
+            <div class="card-body">
+                <div class="card-title">ACC FF #005</div>
+                <div class="card-desc">Giá tốt nhất · Nhiều skin limited</div>
+                <div class="card-tags">
+                    <span>Free Fire</span>
+                    <span>Siêu rẻ</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="price">35.000.000đ <small>45.000.000đ</small></div>
+                <button class="btn-buy">Mua ngay</button>
+            </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="product-card">
+            <div class="card-image" style="background: linear-gradient(145deg, #2d3436, #636e72);">
+                💀
+            </div>
+            <div class="card-body">
+                <div class="card-title">ACC FF #006</div>
+                <div class="card-desc">Acc khủng nhất · Full mọi thứ · Sẵn sàng chiến</div>
+                <div class="card-tags">
+                    <span>Free Fire</span>
+                    <span>Huyền thoại</span>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="price">80.000.000đ</div>
+                <button class="btn-buy">Mua ngay</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // NHẤN NÚT MUA
+        document.querySelectorAll('.btn-buy').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = btn.closest('.product-card');
+                const title = card.querySelector('.card-title').innerText;
+                alert(`🛒 Bạn đã chọn mua: ${title}\nVui lòng liên hệ Admin để hoàn tất!`);
+            });
+        });
+
+        // FILTER (demo)
+        document.querySelectorAll('.filter-bar button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // Ở đây bạn có thể thêm logic lọc sản phẩm
+            });
+        });
+    </script>
+
+</body>
+</html>
